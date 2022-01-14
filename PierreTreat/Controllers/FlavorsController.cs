@@ -97,7 +97,7 @@ namespace PierreTreat.Controllers
     public ActionResult AddTreat(int id)
 {
     var thisFlavor = _db.Flavors.FirstOrDefault(flavor => flavor.FlavorId == id);
-    ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "TreatType");
+    ViewBag.TreatList = new SelectList(_db.Treats, "TreatId", "TreatType");
     return View(thisFlavor);
 }
 
@@ -109,7 +109,7 @@ namespace PierreTreat.Controllers
     _db.TreatFlavor.Add(new TreatFlavor() { TreatId = TreatId, FlavorId = flavor.FlavorId });
     }
     _db.SaveChanges();
-    return RedirectToAction("Index");
+    return RedirectToAction("Details", new { id = flavor.FlavorId });
   }
 
   [HttpPost]
