@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using ToDoList.Models;
+using PierreTreat.Models;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -29,6 +29,12 @@ namespace PierreTreat.Controllers
       var currentUser = await _userManager.FindByIdAsync(userId);
       var userTreats = _db.Treats.Where(entry => entry.User.Id == currentUser.Id).ToList();
       return View(userTreats);
+    }
+
+    public ActionResult Create()
+    {
+      ViewBag.TreatId = new SelectList(_db.Treats, "TreatId", "TreatType");
+      return View();
     }
   }
 }
