@@ -10,7 +10,7 @@ namespace PierreTreat.Controllers
   {
   private readonly PierreTreatContext _db;
   private readonly UserManager<ApplicationUser> _userManager;
-  private readonly SignInManager<ApplicationUser> _signManager;
+  private readonly SignInManager<ApplicationUser> _signInManager;
 
   public AccountController (UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, PierreTreatContext db)
   {
@@ -42,6 +42,32 @@ namespace PierreTreat.Controllers
     {
       return View();
     }
+  }
+
+    public ActionResult Login()
+    {
+      return View();
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> Login(LoginViewModel model)
+    {
+      Microsoft.AspNetCore.Identity.SignInResult result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+      if (result.Succeeded)
+      {
+          return RedirectToAction("Index");
+      }
+      else
+      {
+          return View();
+      }
+    }
+
+    [HttpPost]
+    public async Task<ActionResult> LogOff()
+    {
+      await _signInManager.SignOutAsync();
+      return RedirectToAction("Index");
     }
   }
 }
