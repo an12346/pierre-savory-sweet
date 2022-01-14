@@ -9,8 +9,8 @@ namespace PierreTreat.Models
       this.JoinEntitites = new HashSet<TreatFlavor>();
     }
 
-    public int FLavorId { get; set; }
-    public int Type { get; set; }
+    public int FlavorId { get; set; }
+    public int FlavorType { get; set; }
 
     public virtual ICollection<TreatFlavor> JoinEntities { get; set; }
   }
