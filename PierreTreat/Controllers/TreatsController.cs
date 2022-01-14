@@ -53,7 +53,7 @@ namespace PierreTreat.Controllers
       return RedirectToAction("Index");
     }
 
-     public ActionResult Details(int id)
+    public ActionResult Details(int id)
     {
       var thisTreat = _db.Treats
           .Include(treat => treat.JoinEntities)
@@ -61,6 +61,23 @@ namespace PierreTreat.Controllers
           .FirstOrDefault(treat => treat.TreatId == id);
       return View(thisTreat);
     }
+
+    public ActionResult Edit(int id)
+    {
+      var thisTreat = _db.Treats.FirstOrDefault(Treat => Treat.TreatId == id);
+      ViewBag.FlavorId = new SelectList(_db.Flavors, "FlavorId", "FlavorType");
+      return View(thisTreat);
+    }
+
+
+    [HttpPost]
+    public ActionResult Edit(Treat treat)
+    {
+      _db.Entry(treat).State = EntityState.Modified;
+      _db.SaveChanges();
+      return RedirectToAction("Details", new { id = treat.TreatId });
+    }
+
   }
 }
 
