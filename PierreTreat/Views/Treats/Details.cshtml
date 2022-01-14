@@ -1,0 +1,25 @@
+@model PierreTreat.Models.Treat
+
+<h2>Treat Details</h2>
+<hr />
+<h3>@Html.DisplayNameFor(model => model.TreatType): @Html.DisplayFor(model => model.TreatType)</h3>
+
+@if(@Model.JoinEntities.Count == 0)
+{
+  <p>This treat is not in any different flavors</p>
+}
+else
+{
+  <h4>Treat Flavors :</h4>
+  <ul>
+  @foreach(var join in Model.JoinEntities)
+  {
+    <li>@join.Flavor.FlavorType</li>
+  }
+  </ul>
+}
+
+<p>@Html.ActionLink("Back to list", "Index")</p>
+<p>@Html.ActionLink("Edit Treat", "Edit", new { id = Model.TreatId })</p>
+<p>@Html.ActionLink("Delete Treat", "Delete", new { id = Model.TreatId })</p> 
+<p>@Html.ActionLink("Add a Flavor", "AddFlavor", new { id = Model.TreatId })</p>
