@@ -56,11 +56,11 @@ namespace PierreTreat.Controllers
 
     public ActionResult Details(int id)
     {
-      var thisTreat = _db.Treats
-          .Include(treat => treat.JoinEntities)
-          .ThenInclude(join => join.Flavor)
-          .FirstOrDefault(treat => treat.TreatId == id);
-      return View(thisTreat);
+      var thisFlavor = _db.Flavors
+          .Include(flavor => flavor.JoinEntities)
+          .ThenInclude(join => join.Treat)
+          .FirstOrDefault(flavor => flavor.FlavorId == id);
+      return View(thisFlavor);
     }
   }
 }
