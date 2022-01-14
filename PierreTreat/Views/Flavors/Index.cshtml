@@ -1,0 +1,26 @@
+@{
+  Layout = "_Layout";
+}
+
+@using PierreTreat.Models;
+@model IEnumerable<PierreTreat.Models.Flavor>
+<h1>Treats</h1>
+<hr />
+<h1>Treats added by @User.Identity.Name</h1>
+
+@if (@Model.Any())
+{ 
+  <ul>
+    @foreach (Flavor flavor in Model)
+    {
+      <li>@Html.ActionLink($"{flavor.FlavorType}", "Details", new { id = flavor.FlavorId })</li>
+    }
+  </ul>
+}
+
+else
+{
+  <h3>No treats have been added yet!</h3>
+}
+<h4>@Html.ActionLink("Add a new flavor", "Create")</h4>
+<h4>@Html.ActionLink("Home", "Index", "Home")</h4>
