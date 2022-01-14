@@ -1,0 +1,22 @@
+@using PierreTreat.Models;
+@model IEnumerable<PierreTreat.Models.Treat>
+<h1>Treats</h1>
+
+<h1>Treats added by @User.Identity.Name</h1>
+
+@if (@Model.Any())
+{ 
+  <ul>
+    @foreach (Treat treat in Model)
+    {
+      <li>@Html.ActionLink($"{treat.TreatType}", "Details", new { id = treat.TreatType })</li>
+    }
+  </ul>
+}
+
+else
+{
+  <h3>No treats have been added yet!</h3>
+}
+<h4>@Html.ActionLink("Add a new treat", "Create")</h4>
+<h4>@Html.ActionLink("Home", "Index", "Home")</h4>
